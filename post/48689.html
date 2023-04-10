@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Ros2学习笔记 | Hexo</title><meta name="author" content="Wizard,2200120323@stu.hit.edu.cn"><meta name="copyright" content="Wizard"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ROS2学习笔记 参考：https:&#x2F;&#x2F;fishros.com  一般使用步骤  1.创建工作空间，这和ros1没有区别2.创建功能包，ros2 pkg create 包名 –build-type para1 –dependencies para2      1.如果build-type什么都不写，ros2会默认类型为ament_cmake.  2.rclpy完成这一步骤之后，在功能包中能看见三个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ros2学习笔记">
+<meta property="og:url" content="http://example.com/post/48689.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ROS2学习笔记 参考：https:&#x2F;&#x2F;fishros.com  一般使用步骤  1.创建工作空间，这和ros1没有区别2.创建功能包，ros2 pkg create 包名 –build-type para1 –dependencies para2      1.如果build-type什么都不写，ros2会默认类型为ament_cmake.  2.rclpy完成这一步骤之后，在功能包中能看见三个">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-10T03:11:38.000Z">
+<meta property="article:modified_time" content="2023-04-10T03:12:45.877Z">
+<meta property="article:author" content="Wizard">
+<meta name="twitter:card" content="summary"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/post/48689"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ros2学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2023-04-10 11:12:45'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ros2学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-10T03:11:38.000Z" title="发表于 2023-04-10 11:11:38">2023-04-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-10T03:12:45.877Z" title="更新于 2023-04-10 11:12:45">2023-04-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ros2学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="ROS2学习笔记"><a href="#ROS2学习笔记" class="headerlink" title="ROS2学习笔记"></a>ROS2学习笔记</h1><ul>
+<li><p>参考：<a target="_blank" rel="noopener" href="https://fishros.com/">https://fishros.com</a></p>
+</li>
+<li><p>一般使用步骤</p>
+<blockquote>
+<p>1.创建工作空间，这和ros1没有区别<br>2.创建功能包，ros2 pkg create 包名 –build-type para1 –dependencies para2  </p>
+</blockquote>
+<p>  1.如果build-type什么都不写，ros2会默认类型为ament_cmake.<br>  2.rclpy完成这一步骤之后，在功能包中能看见三个文件夹，分别是resource、test、功能包同名文件夹;rclcpp创建完成后，在文件夹有include和src,这和ros1也是一样的<br>  3.para1是功能包的编译类型，para2是rclpy或者rclcpp</p>
+</li>
+</ul>
+<blockquote>
+<p>3.创建python文件，之后修改resource目录下的setup.py</p>
+</blockquote>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><blockquote>
+<ol>
+<li><code>colcon build</code><br>编译工作空间里的所有功能包</li>
+<li><code>colcon build --packages-select PKG_NAME</code><br>单独编译某一个包</li>
+<li><code>colcon build --packages-select YOUR_PKG_NAME  --cmake-args -DBUILD_TESTING=0</code><br> 不编译测试单元</li>
+<li><code>colcon test</code><br>运行编译的包的测试<br>5.刷新环境变量<br>‘’’<br>source .&#x2F;intall&#x2F;setup.sh<br>‘’’</li>
+</ol>
+</blockquote>
+<h2 id="功能包的编译类型"><a href="#功能包的编译类型" class="headerlink" title="功能包的编译类型"></a>功能包的编译类型</h2><blockquote>
+<ol>
+<li><code>ament_python</code>适用于python程序</li>
+<li><code>cmake</code>适用于c++</li>
+<li><code>ament_cmake</code>,适用于c++程序，是cmake的增强版</li>
+</ol>
+</blockquote>
+<h2 id="消息"><a href="#消息" class="headerlink" title="消息"></a>消息</h2><blockquote>
+<ol>
+<li><code>ros2 interface show geometry_msgs/msg/Twist</code><br>查看消息info</li>
+<li><code>ros2 topic list -t</code><br>查看所有topic和对应的消息类型</li>
+<li><code>ros2 topic pub arg para1 para2 para3</code><br>手动发布指令，para1为话题，para2为消息类型，para3为消息</li>
+</ol>
+</blockquote>
+<h2 id="接口（常用的CLI指令）"><a href="#接口（常用的CLI指令）" class="headerlink" title="接口（常用的CLI指令）"></a>接口（常用的CLI指令）</h2><blockquote>
+<p>1.<code>ros2 interface list</code><br>查看当前环境下的接口列表<br>2.<code>ros2 interface packages</code><br>查看接口的所有包<br>3.<code>ros2 interface packages std_msgs</code><br>查看某一个包下的所有接口<br>4.<code>ros2 interface show std_msgs/msg/string</code><br>查看某一个接口的详细内容<br>5.<code>ros2 interface proto sensor_msgs/msg/Image</code><br>输出一个接口的所有属性 </p>
+</blockquote>
+<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><blockquote>
+<p>1.<code>ros2 service list</code><br>查看服务列表<br>2.<code>ros2 run examples_rclpy_minimal_service service</code><br>启用服务器(这是一个示例)<br>3.<code>ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts &quot;&#123;a: 5,b: 10&#125;&quot;</code><br>CLI界面启用服务<br>4.<code>ros2 service type /add_two_ints</code><br>查看接口服务类型<br>5.<code>ros2 service find example_interfaces/srv/AddTwoInts</code><br>查找使用某一个接口的服务  </p>
+</blockquote>
+<h2 id="Launch"><a href="#Launch" class="headerlink" title="Launch"></a>Launch</h2><p>‘’’<br>在ROS2中launch文件支持使用<code>python</code>进行编写，🍀，K毛鸡<br>‘’’  </p>
+<blockquote>
+<ol>
+<li>需要导入两个库，一个叫做<code>LaunchDescription</code>，用于对launch文件内容进行描述，一个是<code>Node</code>，用于声明节点所在的位置<br>from launch import LaunchDescription<br>from launch_ros.actions import Node   </li>
+<li>这里要定一个名字叫做<code>generate_launch_description</code>的函数，ROS2会对该函数名字做识别。<br>def generate_launch_description():</li>
+</ol>
+</blockquote>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>RCL（ROS Client Library）ROS客户端库，其实就是ROS的一种API，提供了对ROS话题、服务、参数、Action等接口。比如前面用到的rclcpp，rclpy<br>也就是说，在ROS2中提供了<code>话题</code>，<code>服务</code>，<code>动作</code>，<code>参数</code>这几种通信机制</p>
+<h2 id="踩坑点（太重要了，真是被自己菜哭了）"><a href="#踩坑点（太重要了，真是被自己菜哭了）" class="headerlink" title="踩坑点（太重要了，真是被自己菜哭了）"></a>踩坑点（太重要了，真是被自己菜哭了）</h2><ul>
+<li>1.ros2 python 节点编译时出现<code>No excutable found</code><br>使用<code>colcon build --symlink-install</code>进行编译<br>对于其他的这种情况，可能的原因有很多，通常来说是自己的文件install的路径错了，修改cmake文件</li>
+<li>2.相关API发生变化<br><code>ros::Rate=&gt;rclcpp::WallRate</code>  </li>
+<li>3.回调函数形参的变化  <blockquote>
+<p>&#x2F;&#x2F;ros1:<br>void callback(const std_msgs::String::ConstPtr &amp; msg);<br>&#x2F;&#x2F;ros2:<br>void callback<br>(std_msgs::msg::String::ConstSharedPtr msg);</p>
+</blockquote>
+</li>
+<li><ol start="4">
+<li>cmake未定义的引用报错<blockquote>
+<p>错误：undefined reference to <code>tf2_ros::TransformBroadcaster::sendTransform(geometry_msgs::msg::TransformStamped_&lt;std::allocator&lt;void&gt; &gt; const&amp;)</code><br>这种情况是因为cmakelist文件里面的依赖和动态库没有添加全<br>找两个地方:<br>1.<code>find_packages&#123;&#125;</code><br>2.<code>ament_target_dependencies&#123;&#125;</code></p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="ROS2仿真相关笔记"><a href="#ROS2仿真相关笔记" class="headerlink" title="ROS2仿真相关笔记"></a>ROS2仿真相关笔记</h2><ul>
+<li><p>环境：ROS2支持的仿真环境很多，如gazebo、ignition gazebo、webots等等，现先迁移gazebo，其他的看情况而定  </p>
+<blockquote>
+<p>sudo apt install gazebo11    </p>
+</blockquote>
+</li>
+<li><p>仿真demo下载：  </p>
+<blockquote>
+<p>sudo apt install ros-foxy-gazebo-*</p>
+</blockquote>
+</li>
+<li><p>运行此demo</p>
+<blockquote>
+<p>gazebo &#x2F;opt&#x2F;ros&#x2F;foxy&#x2F;share&#x2F;gazebo_plugins&#x2F;worlds&#x2F;gazebo_ros_diff_drive_demo.world </p>
+</blockquote>
+</li>
+<li><p>卸载（略）</p>
+</li>
+</ul>
+<h2 id="TF2-2022-6-29学习，后续补全"><a href="#TF2-2022-6-29学习，后续补全" class="headerlink" title="TF2(2022-6-29学习，后续补全)"></a>TF2(2022-6-29学习，后续补全)</h2><p>在ros2中，已经完全弃用ros1中的tf,所以仿真包里面的tf一直没有修改我是真的不懂，纯纯的给我找麻烦</p>
+<h2 id="diagnostics"><a href="#diagnostics" class="headerlink" title="diagnostics"></a>diagnostics</h2><p>diagnostics意为诊断，该模块旨在从系统中收集各种状态信息和硬件信息，以进行分析，故障排除和记录。 工具链中包含用于收集，发布，分析和查看diagnostics数据的工具。</p>
+<h2 id="Launch-2022-07-01"><a href="#Launch-2022-07-01" class="headerlink" title="Launch(2022-07-01)"></a>Launch(2022-07-01)</h2><ol>
+<li>仿真包需要进行大量launch文件的修改，部分本人还不太熟悉，<a target="_blank" rel="noopener" href="https://github.com/chargerKong/learning_ros2_launch_by_example">python git launch学习笔记</a><br><a target="_blank" rel="noopener" href="http://www.robotsfan.com/posts/7a5950c4.html">ros2 launch</a>  </li>
+<li>本次仿真迁移用的是xml格式的，旨在原来的launch的文件上直接修改就可以，减少了大量的学习成本，若后续python相关API解释文档被补全，再想办法修改为py<br> xml参考文档：<br> <a target="_blank" rel="noopener" href="https://docs.ros.org/en/foxy/How-To-Guides/Launch-files-migration-guide.html">xml csdn 参考</a><br> <a target="_blank" rel="noopener" href="https://blog.csdn.net/baimei4833953/article/details/124641449">xml doc 参考2</a></li>
+</ol>
+<h3 id="1-lt-node-gt-tag"><a href="#1-lt-node-gt-tag" class="headerlink" title="1. &lt; node &gt; tag"></a>1. &lt; node &gt; tag</h3><blockquote>
+<p>Differences from ROS 1:  </p>
+<ol>
+<li><code>type</code> attribute is now <code>exec</code>.  </li>
+<li><code>ns</code> attribute is now <code>namespace</code>.  </li>
+<li>The following attributes aren’t available:   <code>machine</code>, <code>respawn_delay</code>, <code>clear_params.</code></li>
+</ol>
+</blockquote>
+<h3 id="2-lt-param-gt-tag"><a href="#2-lt-param-gt-tag" class="headerlink" title="2. &lt; param &gt; tag"></a>2. &lt; param &gt; tag</h3><blockquote>
+<ol>
+<li>There’s <code>no global parameter</code> concept in ROS 2     </li>
+<li>For that reason, it can only be used nested in a node tag.   </li>
+<li>Some attributes aren’t supported in ROS 2: <code>type, textfile, binfile, executable, command</code>.  </li>
+<li>In ROS 2, param tags are allowed to be nested.   </li>
+<li>param现在只支持<code>name、value 、value-sep、type</code></li>
+</ol>
+</blockquote>
+<h3 id="3-lt-rosparam-gt-tag"><a href="#3-lt-rosparam-gt-tag" class="headerlink" title="3. &lt; rosparam &gt; tag"></a>3. &lt; rosparam &gt; tag</h3><blockquote>
+<ol>
+<li><code>rosparam</code> Loads parameters from a yaml file. It has been replaced with a <code>from</code> attribute in param tags.</li>
+</ol>
+</blockquote>
+<h3 id="4-lt-include-gt-tag"><a href="#4-lt-include-gt-tag" class="headerlink" title="4. &lt; include &gt; tag"></a>4. &lt; include &gt; tag</h3><blockquote>
+<ol>
+<li>Usage: Allows including another launch file.  </li>
+<li>Available in ROS 1, included content was scoped. In ROS 2, it’s not. Nest includes in <code>group</code> tags to scope them.  </li>
+<li><code>ns</code> attribute is not supported. See example of <code>push-ros-namespace</code> tag for a workaround.</li>
+<li>arg tags nested in an include tag don’t support conditionals (if or unless).  </li>
+<li>There is no support for nested env tags. set_env and unset_env can be used instead.  </li>
+<li>Both clear_params and pass_all_args attributes aren’t supported.</li>
+</ol>
+</blockquote>
+<h3 id="5-lt-arg-gt-tag"><a href="#5-lt-arg-gt-tag" class="headerlink" title="5. &lt; arg &gt; tag"></a>5. &lt; arg &gt; tag</h3><blockquote>
+<ol>
+<li>Usage: arg is used for declaring a launch argument, or to pass an argument when using include tags.</li>
+<li><code>value</code> attribute is <code>not allowed</code>. Use <code>let</code> tag for this.  </li>
+<li><code>doc</code> is now <code>description</code>.  </li>
+<li>When nested within an include tag, <code>if</code> and <code>unless</code> attributes aren’t allowed.</li>
+</ol>
+</blockquote>
+<h3 id="6-lt-ground-gt-tag"><a href="#6-lt-ground-gt-tag" class="headerlink" title="6. &lt; ground &gt; tag"></a>6. &lt; ground &gt; tag</h3><blockquote>
+<ol>
+<li>Usage: 限制启动范围(英文文档不好理解,这里手打)</li>
+<li>使用<code>let,include,push-ros-namespace</code>这三个tag来实现</li>
+<li>和ROS1的不同之处:<br>[1]There is no <code>ns</code> attribute. See the new <code>push-ros-namespace</code> tag as a workaround.<br>[2]<code>clear_params</code> attribute isn’t available.<br>[3]It doesn’t accept <code>remap</code> nor <code>param</code> tags as children.</li>
+</ol>
+</blockquote>
+<h3 id="7-lt-push-ros-namespace-gt-tag"><a href="#7-lt-push-ros-namespace-gt-tag" class="headerlink" title="7. &lt; push-ros-namespace &gt; tag"></a>7. &lt; push-ros-namespace &gt; tag</h3><blockquote>
+<ol>
+<li><code>include</code> and <code>group</code> tags don’t accept an ns attribute.</li>
+</ol>
+</blockquote>
+<p>‘’’<br>&lt; group&gt;<br>   &lt; push-ros-namespace namespace&#x3D;”my_ns”&#x2F;&gt;<br>   <!--Nodes here are namespaced with "my_ns".--><br>   <!--If there is an include action here, its nodes will also be namespaced.--><br>   &lt; push-ros-namespace namespace&#x3D;”another_ns”&#x2F;&gt;<br>   <!--Nodes here are namespaced with "another_ns/my_ns".--><br>   &lt; push-ros-namespace namespace&#x3D;”&#x2F;absolute_ns”&#x2F;&gt;<br>   <!--Nodes here are namespaced with "/absolute_ns".--><br>   <!--The following node receives an absolute namespace, so it will ignore the others previously pushed.--><br>   <!--The full path of the node will be /asd/my_node.--><br>   &lt; node pkg&#x3D;”my_pkg” exec&#x3D;”my_executable” name&#x3D;”my_node” ns&#x3D;”&#x2F;asd”&#x2F;&gt;<br>&lt; &#x2F;group&gt;<br>‘’’ </p>
+<h3 id="8-lt-env-gt-tag"><a href="#8-lt-env-gt-tag" class="headerlink" title="8. &lt; env &gt; tag"></a>8. &lt; env &gt; tag</h3><blockquote>
+<ol>
+<li>Usage: Sets an environment variable.</li>
+<li><code>env</code> can only be used nested in a node or executable tag. if and unless tags aren’t supported.  </li>
+<li><code>set_env</code> can be nested within the root tag launch or in group tags. It accepts the same attributes as env, and also if and unless tags.</li>
+<li><code>unset_env</code> unsets an environment variable. It accepts a name attribute and conditionals.</li>
+<li>本版本迁移过来的基本都是set_env</li>
+</ol>
+</blockquote>
+<h3 id="9-Substitutions"><a href="#9-Substitutions" class="headerlink" title="9. Substitutions"></a>9. <em><strong>Substitutions</strong></em></h3><pre><code>1. env and optenv tags have been replaced by the env tag. $(env &lt;NAME&gt;) will fail if the environment variable doesn’t exist. $(env &lt;NAME&gt; &#39;&#39;) does the same as ROS 1’s $(optenv &lt;NAME&gt;). $(env &lt;NAME&gt; &lt;DEFAULT&gt;) does the same as ROS 1’s $(env &lt;NAME&gt; &lt;DEFAULT&gt;) or $(optenv &lt;NAME&gt; &lt;DEFAULT&gt;).
+
+2. find has been replaced with find-pkg-share (substituting the share directory of an installed package). Alternatively find-pkg-prefix will return the root of an installed package.
+
+3. There is a new exec-in-pkg substitution. e.g.: $(exec-in-pkg &lt;package_name&gt; &lt;exec_name&gt;).
+
+4. There is a new find-exec substitution.
+
+5. arg has been replaced with var. It looks at configurations defined either with arg or let tag.
+
+6. eval and dirname substitutions haven’t changed.
+
+7. anon substitution is not supported.
+</code></pre>
+<h3 id="x2F-gazebo"><a href="#x2F-gazebo" class="headerlink" title="&#x2F;gazebo"></a>&#x2F;gazebo</h3><blockquote>
+<p>本节点对外提供的服务<br>&#x2F;delete_entity<br>&#x2F;get_model_list<br>&#x2F;spawn_entity<br>&#x2F;gazebo&#x2F;describe_parameters<br>&#x2F;gazebo&#x2F;get_parameter_types<br>&#x2F;gazebo&#x2F;get_parameters<br>&#x2F;gazebo&#x2F;list_parameters<br>&#x2F;gazebo&#x2F;set_parameters<br>&#x2F;gazebo&#x2F;set_parameters_atomically<br><em><strong>特别说明</strong></em><br>一般使用这三个服务：1. &#x2F;spawn_entity 2. &#x2F;get_model_list 3. &#x2F;delete_entity  </p>
+</blockquote>
+<h2 id="仿真包作出的修改"><a href="#仿真包作出的修改" class="headerlink" title="仿真包作出的修改"></a>仿真包作出的修改</h2><blockquote>
+<p>故障排除：<br>        1. 参数能够初始化，没有问题；<br>        2. 服务器参数也可以初始化没有问题；<br>        3. 基本排除是cmakelist文件和package文件的问题；<br>        4. 排除了pos话题缺失的问题；<br>        5. 排除了无法进入timer_callback的问题；<br>        6. 解决了ground_truth_republisher编译错误和改写的问题；<br>对于仿真的launch文件升级检查内容：<br>        1. 检查语法是否正确；<br>        2. 检查调用的功能包中是否有对应的节点；<br>        3. 检查话题能够对应上上一个版本的；<br>        4. echo这个话题看是否符合标准；<br>2022.07.07<br>排除了仿真包可能存在的cmd问题；<br>明天需要确定current_pose 是否符合规范；</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Wizard</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/post/48689.html">http://example.com/post/48689.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Hexo</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/64872.html"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">模糊控制理论</div></div></a></div><div class="next-post pull-right"><a href="/post/16346.html"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C++学习笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wizard</div><div class="author-info__description">欢迎来到我的博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/1zw" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ROS2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">ROS2学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">1.1.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E5%8C%85%E7%9A%84%E7%BC%96%E8%AF%91%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">功能包的编译类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF"><span class="toc-number">1.3.</span> <span class="toc-text">消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%EF%BC%88%E5%B8%B8%E7%94%A8%E7%9A%84CLI%E6%8C%87%E4%BB%A4%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">接口（常用的CLI指令）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.5.</span> <span class="toc-text">服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Launch"><span class="toc-number">1.6.</span> <span class="toc-text">Launch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">1.7.</span> <span class="toc-text">补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%9D%91%E7%82%B9%EF%BC%88%E5%A4%AA%E9%87%8D%E8%A6%81%E4%BA%86%EF%BC%8C%E7%9C%9F%E6%98%AF%E8%A2%AB%E8%87%AA%E5%B7%B1%E8%8F%9C%E5%93%AD%E4%BA%86%EF%BC%89"><span class="toc-number">1.8.</span> <span class="toc-text">踩坑点（太重要了，真是被自己菜哭了）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ROS2%E4%BB%BF%E7%9C%9F%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0"><span class="toc-number">1.9.</span> <span class="toc-text">ROS2仿真相关笔记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TF2-2022-6-29%E5%AD%A6%E4%B9%A0%EF%BC%8C%E5%90%8E%E7%BB%AD%E8%A1%A5%E5%85%A8"><span class="toc-number">1.10.</span> <span class="toc-text">TF2(2022-6-29学习，后续补全)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#diagnostics"><span class="toc-number">1.11.</span> <span class="toc-text">diagnostics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Launch-2022-07-01"><span class="toc-number">1.12.</span> <span class="toc-text">Launch(2022-07-01)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-lt-node-gt-tag"><span class="toc-number">1.12.1.</span> <span class="toc-text">1. &lt; node &gt; tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-lt-param-gt-tag"><span class="toc-number">1.12.2.</span> <span class="toc-text">2. &lt; param &gt; tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-lt-rosparam-gt-tag"><span class="toc-number">1.12.3.</span> <span class="toc-text">3. &lt; rosparam &gt; tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-lt-include-gt-tag"><span class="toc-number">1.12.4.</span> <span class="toc-text">4. &lt; include &gt; tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-lt-arg-gt-tag"><span class="toc-number">1.12.5.</span> <span class="toc-text">5. &lt; arg &gt; tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-lt-ground-gt-tag"><span class="toc-number">1.12.6.</span> <span class="toc-text">6. &lt; ground &gt; tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-lt-push-ros-namespace-gt-tag"><span class="toc-number">1.12.7.</span> <span class="toc-text">7. &lt; push-ros-namespace &gt; tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-lt-env-gt-tag"><span class="toc-number">1.12.8.</span> <span class="toc-text">8. &lt; env &gt; tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-Substitutions"><span class="toc-number">1.12.9.</span> <span class="toc-text">9. Substitutions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#x2F-gazebo"><span class="toc-number">1.12.10.</span> <span class="toc-text">&#x2F;gazebo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E5%8C%85%E4%BD%9C%E5%87%BA%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="toc-number">1.13.</span> <span class="toc-text">仿真包作出的修改</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/22948.html" title="传递函数离散化和PID控制的Python实现"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="传递函数离散化和PID控制的Python实现"/></a><div class="content"><a class="title" href="/post/22948.html" title="传递函数离散化和PID控制的Python实现">传递函数离散化和PID控制的Python实现</a><time datetime="2023-04-10T03:19:00.000Z" title="发表于 2023-04-10 11:19:00">2023-04-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/64872.html" title="模糊控制理论"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="模糊控制理论"/></a><div class="content"><a class="title" href="/post/64872.html" title="模糊控制理论">模糊控制理论</a><time datetime="2023-04-10T03:16:33.000Z" title="发表于 2023-04-10 11:16:33">2023-04-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/48689.html" title="Ros2学习笔记"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ros2学习笔记"/></a><div class="content"><a class="title" href="/post/48689.html" title="Ros2学习笔记">Ros2学习笔记</a><time datetime="2023-04-10T03:11:38.000Z" title="发表于 2023-04-10 11:11:38">2023-04-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/16346.html" title="C++学习笔记"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++学习笔记"/></a><div class="content"><a class="title" href="/post/16346.html" title="C++学习笔记">C++学习笔记</a><time datetime="2023-04-10T03:09:27.000Z" title="发表于 2023-04-10 11:09:27">2023-04-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/26474.html" title="How to build your own blog"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="How to build your own blog"/></a><div class="content"><a class="title" href="/post/26474.html" title="How to build your own blog">How to build your own blog</a><time datetime="2022-12-17T13:00:51.128Z" title="发表于 2022-12-17 21:00:51">2022-12-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Wizard</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
