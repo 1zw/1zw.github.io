@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>KI-Gan vessel的医学影像识别 | Wizard</title><meta name="author" content="Wizard,2200120323@stu.hit.edu.cn"><meta name="copyright" content="Wizard"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Ki-GAN@1zw 说明这个仓库主要完成了Ki-Gan的论文复现工作数据来源为：https:&#x2F;&#x2F;link.springer.com&#x2F;chapter&#x2F;10.1007&#x2F;978-3-030-32239-7_31参考了以下的repo:  https:&#x2F;&#x2F;github.com&#x2F;lee-zq&#x2F;VesselSeg-Pytorch&#x2F;tree&#x2F;master https:&#x2F;&#x2F;github.com&#x2F;chenyilan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KI-Gan vessel的医学影像识别">
+<meta property="og:url" content="https://1zw.github.io/post/54224.html">
+<meta property="og:site_name" content="Wizard">
+<meta property="og:description" content="Ki-GAN@1zw 说明这个仓库主要完成了Ki-Gan的论文复现工作数据来源为：https:&#x2F;&#x2F;link.springer.com&#x2F;chapter&#x2F;10.1007&#x2F;978-3-030-32239-7_31参考了以下的repo:  https:&#x2F;&#x2F;github.com&#x2F;lee-zq&#x2F;VesselSeg-Pytorch&#x2F;tree&#x2F;master https:&#x2F;&#x2F;github.com&#x2F;chenyilan">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://1zw.github.io/img/cyberhorizon.jpg">
+<meta property="article:published_time" content="2023-09-07T11:54:03.000Z">
+<meta property="article:modified_time" content="2023-09-07T12:00:54.536Z">
+<meta property="article:author" content="Wizard">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://1zw.github.io/img/cyberhorizon.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://1zw.github.io/post/54224.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'KI-Gan vessel的医学影像识别',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-09-07 20:00:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/cyberhorizon.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Wizard"><span class="site-name">Wizard</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">KI-Gan vessel的医学影像识别</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-07T11:54:03.000Z" title="发表于 2023-09-07 19:54:03">2023-09-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-09-07T12:00:54.536Z" title="更新于 2023-09-07 20:00:54">2023-09-07</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="KI-Gan vessel的医学影像识别"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Ki-GAN"><a href="#Ki-GAN" class="headerlink" title="Ki-GAN"></a>Ki-GAN</h1><p>@1zw</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>这个仓库主要完成了<a target="_blank" rel="noopener" href="https://link.springer.com/chapter/10.1007/978-3-030-32239-7_31">Ki-Gan</a>的论文复现工作<br>数据来源为：<a target="_blank" rel="noopener" href="https://link.springer.com/chapter/10.1007/978-3-030-32239-7_31">https://link.springer.com/chapter/10.1007/978-3-030-32239-7_31</a><br>参考了以下的repo:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/lee-zq/VesselSeg-Pytorch/tree/master">https://github.com/lee-zq/VesselSeg-Pytorch/tree/master</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/chenyilan/MICCAI19-Ki-GAN">https://github.com/chenyilan/MICCAI19-Ki-GAN</a></li>
+</ol>
+<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><ol>
+<li>数据先经过python 代码进行数据增强，在经过matlab 代码得到光声数据。下面是两种传统算法重构之后的图像，左为时间反朔法，右边为DAS，由于左侧图像更为清晰，因此不同于论文中提到的，我在实现时用bformer中选取右侧图像作为输入 <figure class="half">
+ <img src="..\image\ki-gan_img\bformer.png" width="300">
+ <img src="..\image\ki-gan_img\fixed_DAS.png" width="460">
+ <img src="..\image\ki-gan_img/Ki-Gan.png" width="300">
+ <img src="..\image\ki-gan_img/GT.png" width="300">
+</figure></li>
+<li>KEB结果，是一个32张图片的阵列<figure class="half">
+ <img src="..\image\ki-gan_img\keb_img.png" width="400">
+</figure></li>
+<li>消融实验结果<center>
+ <img src="..\image\ki-gan_img\Unet1.png" width="400">
+</center>
+<center>
+ <img src="..\image\ki-gan_img\Unet2.png" width="400">
+</center>
+<center>
+ <img src="..\image\ki-gan_img\image-2.png" width="400">
+</center>
+<center>
+ <img src="..\image\ki-gan_img\ae.png" width="400">
+</center>
+<center>
+ <img src="..\image\ki-gan_img\image-4.png" width="400">
+</center></li>
+</ol>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
+<li>从消融实验的结果来看，和论文中存在很大差距，可能是数据的来源，又或者是在生成光声数据时没有能做到完全复现，同时关于作者的稀疏实验部分，由于并不知道到底是哪些通道的数据被set zero了，因此也无法复现。</li>
+<li>在复现的过程中，很大程度的依赖了别人的代码，因此对于代码的理解程度不够，这也是我在复现过程中遇到的最大的困难，特别是Unet的部分，用一些普通的架构就不能work，但是作者提供的就能让loss很快收敛，后续需要继续学习。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://1zw.github.io">Wizard</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://1zw.github.io/post/54224.html">https://1zw.github.io/post/54224.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://1zw.github.io" target="_blank">Wizard</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/cyberhorizon.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/49138.html" title="nuplan script 详解"><img class="cover" src="/img/cyberhorizon.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">nuplan script 详解</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wizard</div><div class="author-info__description">欢迎来到我的博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ki-GAN"><span class="toc-number">1.</span> <span class="toc-text">Ki-GAN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-number">1.2.</span> <span class="toc-text">结果展示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">1.3.</span> <span class="toc-text">结论</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/54224.html" title="KI-Gan vessel的医学影像识别"><img src="/img/cyberhorizon.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="KI-Gan vessel的医学影像识别"/></a><div class="content"><a class="title" href="/post/54224.html" title="KI-Gan vessel的医学影像识别">KI-Gan vessel的医学影像识别</a><time datetime="2023-09-07T11:54:03.000Z" title="发表于 2023-09-07 19:54:03">2023-09-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49138.html" title="nuplan script 详解"><img src="/img/cyberhorizon.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nuplan script 详解"/></a><div class="content"><a class="title" href="/post/49138.html" title="nuplan script 详解">nuplan script 详解</a><time datetime="2023-07-17T11:49:42.000Z" title="发表于 2023-07-17 19:49:42">2023-07-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/25807.html" title="Air cerefrence1"><img src="/img/cyberhorizon.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Air cerefrence1"/></a><div class="content"><a class="title" href="/post/25807.html" title="Air cerefrence1">Air cerefrence1</a><time datetime="2023-07-06T11:00:35.000Z" title="发表于 2023-07-06 19:00:35">2023-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/18229.html" title="Understanding of Hierarchical Reinforcement Learning"><img src="/img/cyberhorizon.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Understanding of Hierarchical Reinforcement Learning"/></a><div class="content"><a class="title" href="/post/18229.html" title="Understanding of Hierarchical Reinforcement Learning">Understanding of Hierarchical Reinforcement Learning</a><time datetime="2023-06-13T12:36:23.000Z" title="发表于 2023-06-13 20:36:23">2023-06-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/24957.html" title="ssh remote link without server_code"><img src="/img/cybervehicle.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ssh remote link without server_code"/></a><div class="content"><a class="title" href="/post/24957.html" title="ssh remote link without server_code">ssh remote link without server_code</a><time datetime="2023-06-11T02:26:21.000Z" title="发表于 2023-06-11 10:26:21">2023-06-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Wizard</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
